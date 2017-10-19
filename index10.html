@@ -21,13 +21,13 @@
         var displayAllTasks = function () {
             $.each(tasksArray, function (index, task) {
                 var tasksListElement = $('#tasksList');
-                tasksListElement.append(rowTemplate(task.name));
+                tasksListElement.append(rowTemplate(task.name, task.status));
             })
         };
 
-        var rowTemplate = function (text) {
+        var rowTemplate = function (text, status) {
             return '<li>' +
-                    '<span style="margin-right: 5px">' + text + '</span>' +
+                    '<span style="margin-right: 5px" class=' + status + '>' + text + '</span>' +
                     '<button class="taskDone">Done</button>' +
                     ' <button class="taskRemove">Remove</button>' +
                     '</li>'
@@ -35,33 +35,35 @@
 
         $(document).on('click', '.taskRemove', function () {
             var taskIndexToRemove = $(this).closest('li').index();
+            //array.splice(index, count)
+            //splice method remove element with specifinc index position in array
+            //the second argument specifies how many elements should be removed, starting from index position
             tasksArray.splice(taskIndexToRemove, 1);
+            //we need to persist this modified array in our storage again
             localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
-
-            //we also have to remove the task form html
-            $(this).closest('li').remove();
         });
 
         $(document).on('click', '.taskDone', function () {
+            var taskIndex = $(this).closest('li').index();
             if ($(this).closest('li').find('span').hasClass('Done')) {
                 $(this).closest('li').find('span').removeClass('Done');
+                tasksArray[taskIndex].status = 'Planned'
             } else {
                 $(this).closest('li').find('span').addClass('Done');
+                tasksArray[taskIndex].status = 'Done'
             }
-
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
         });
 
         $(document).on('click', '#addButton', function () {
             var tasksListElement = $('#tasksList');
             var taskInputValue = $('#taskInput').val()
 
-            tasksListElement.append(rowTemplate(taskInputValue));
-
-            //we want to persist this task in order to read it after the page is refreshed
             var task = {
                 name: taskInputValue,
-                status: 'Planned' //it is newly created task so let's call it's status Planned
+                status: 'Planned'
             };
+            tasksListElement.append(rowTemplate(task.name, task.status));
             tasksArray.push(task);
             localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
 
