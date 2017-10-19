@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <style>
+        .Done {
+            text-decoration: line-through;
+        }
+    </style>
+
+    <script>
+
+        var rowTemplate = function (text) {
+            return '<li>' +
+                    '<span style="margin-right: 5px">' + text + '</span>' +
+                    '<button class="taskDone">Done</button>' +
+                    '</li>'
+        };
+
+        $(document).on('click', '.taskDone', function () {
+            //$(this).closest('li').find('span').css('text-decoration', 'line-through')
+            //instead of changing css for this element we can add css class to it
+            $(this).closest('li').find('span').addClass('Done');
+        });
+
+        $(document).on('click', '#addButton', function () {
+            var tasksListElement = $('#tasksList');
+            var taskInputValue = $('#taskInput').val()
+
+            tasksListElement.append(rowTemplate(taskInputValue));
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text" id="taskInput">
+<input type="button" id="addButton" value="Add">
+
+<ul id="tasksList">
+</ul>
+
+</body>
+</html>

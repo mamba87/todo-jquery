@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+        $(document).on('click', '#addButton', function () {
+            //first we have to find our tasksList element on a page
+            // $('#idOfElement')
+            var tasksListElement = $('#tasksList')
+
+            //then we are appending new item to our list
+            var rowTemplate = '<li>dynamically added list item</li>';
+            tasksListElement.append(rowTemplate)
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text">
+<input type="button" id="addButton" value="Add">
+
+<ul id="tasksList">
+    <li>Some example task 1</li>
+    <li>Some example task 2</li>
+    <li>Some example task 3</li>
+</ul>
+
+</body>
+</html>

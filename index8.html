@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <style>
+        .Done {
+            text-decoration: line-through;
+        }
+    </style>
+
+    <script>
+
+        var tasksArray = JSON.parse(localStorage.getItem("tasksArray"));
+        if (tasksArray == null) {
+            tasksArray = [];
+        }
+
+        var displayAllTasks = function () {
+            //we have to walk through an array
+            //each element from a storage needs to be displayed on our page as html object - similar way we were doing it after clicking add button
+            $.each(tasksArray, function (index, task) {
+                var tasksListElement = $('#tasksList');
+                tasksListElement.append(rowTemplate(task.name));
+            })
+        };
+
+        var rowTemplate = function (text) {
+            return '<li>' +
+                    '<span style="margin-right: 5px">' + text + '</span>' +
+                    '<button class="taskDone">Done</button>' +
+                    '</li>'
+        };
+
+        $(document).on('click', '.taskDone', function () {
+            if ($(this).closest('li').find('span').hasClass('Done')) {
+                $(this).closest('li').find('span').removeClass('Done');
+            } else {
+                $(this).closest('li').find('span').addClass('Done');
+            }
+
+        });
+
+        $(document).on('click', '#addButton', function () {
+            var tasksListElement = $('#tasksList');
+            var taskInputValue = $('#taskInput').val()
+
+            tasksListElement.append(rowTemplate(taskInputValue));
+
+            //we want to persist this task in order to read it after the page is refreshed
+            var task = {
+                name: taskInputValue,
+                status: 'Planned' //it is newly created task so let's call it's status Planned
+            };
+            tasksArray.push(task);
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+
+        });
+
+        $(document).ready(function () {
+            displayAllTasks();
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text" id="taskInput">
+<input type="button" id="addButton" value="Add">
+
+<ul id="tasksList">
+</ul>
+
+</body>
+</html>

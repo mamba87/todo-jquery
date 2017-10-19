@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+        $(document).on('click', '#addButton', function () {
+            alert("You clicked Add button!");
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text">
+<input type="button" id="addButton" value="Add">
+
+<!--'ul' stands for unordered list-->
+<!--'li stands for list item-->
+<!--Name of tasks should be more real life exmple-->
+<ul id="tasksList">
+    <li>Some example task 1</li>
+    <li>Some example task 2</li>
+    <li>Some example task 3</li>
+</ul>
+
+</body>
+</html>

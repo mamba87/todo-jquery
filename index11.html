@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/cover.css"/>
+
+    <style>
+        .Done {
+            text-decoration: line-through;
+        }
+    </style>
+
+    <script>
+
+        var tasksArray = JSON.parse(localStorage.getItem("tasksArray"));
+        if (tasksArray == null) {
+            tasksArray = [];
+        }
+
+        var displayAllTasks = function () {
+            $.each(tasksArray, function (index, task) {
+                var tasksListElement = $('#tasksList');
+                tasksListElement.append(rowTemplate(task.name));
+            })
+        };
+
+        var rowTemplate = function (text) {
+            return '<li>' +
+                    '<h3>' +
+                    '<span style="margin-right: 5px">' + text + '</span>' +
+                    '<button type="button" class="btn btn-primary taskDone">Done</button>' +
+                    ' <button type="button" class="btn btn-warning taskRemove">Remove</button>' +
+                    '</h3>' +
+                    '</li>'
+        };
+
+        $(document).on('click', '.taskRemove', function () {
+            var taskIndexToRemove = $(this).closest('li').index();
+            tasksArray.splice(taskIndexToRemove, 1);
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+
+            //we also have to remove the task form html
+            $(this).closest('li').remove();
+        });
+
+        $(document).on('click', '.taskDone', function () {
+            if ($(this).closest('li').find('span').hasClass('Done')) {
+                $(this).closest('li').find('span').removeClass('Done');
+            } else {
+                $(this).closest('li').find('span').addClass('Done');
+            }
+
+        });
+
+        $(document).on('click', '#addButton', function () {
+            var tasksListElement = $('#tasksList');
+            var taskInputValue = $('#taskInput').val()
+
+            tasksListElement.append(rowTemplate(taskInputValue));
+
+            //we want to persist this task in order to read it after the page is refreshed
+            var task = {
+                name: taskInputValue,
+                status: 'Planned' //it is newly created task so let's call it's status Planned
+            };
+            tasksArray.push(task);
+            localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+
+        });
+
+        $(document).ready(function () {
+            displayAllTasks();
+        });
+
+    </script>
+</head>
+<body>
+
+<div class="site-wrapper">
+
+    <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+            <div class="inner cover">
+
+
+                <form>
+                    <div class="form-group">
+                        <label for="taskInput">Task to do</label>
+                        <input type="text" class="form-control" id="taskInput">
+                    </div>
+                    <button id="addButton" type="submit" class="btn btn-default">Add task</button>
+                </form>
+                <br>
+
+                <div>
+                    <ul id="tasksList" class="list-unstyled">
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

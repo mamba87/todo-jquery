@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+        var rowTemplate = function (text) {
+            return '<li>' +
+                    '<span style="margin-right: 5px">' + text + '</span>' +
+                    //we will need this class - taskDone to identify a button, to add behaviour to it
+                    //we can't use id='taskDone' because there will be many buttons and id should be unique for each element
+                    '<button class="taskDone">Done</button>' +
+                    '</li>'
+        };
+
+        $(document).on('click', '.taskDone', function () {
+            // this function is called when the button is clicked
+            // inside this function this button is accessible by this
+            console.log(this);
+
+            // wrapping up any html element with $() allows us to use additional features provided by jQuery framework
+            console.log($(this));
+            
+            //$(this).closest('li') - find the closest <li></li> element - the one that wraps the button which was clicked
+            //.find('span') - then in this <li></li> element find a span element
+            //.css - change a style of this <span> element - add a line through a text
+            $(this).closest('li').find('span').css('text-decoration', 'line-through')
+        });
+
+        $(document).on('click', '#addButton', function () {
+            var tasksListElement = $('#tasksList');
+            var taskInputValue = $('#taskInput').val()
+
+            tasksListElement.append(rowTemplate(taskInputValue));
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text" id="taskInput">
+<input type="button" id="addButton" value="Add">
+
+<ul id="tasksList">
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My TODO App!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+        //function allows to use given argument, so that each time when we call it, it can give different output
+        var rowTemplate = function(text){
+            return '<li>' + text + '</li>'
+        };
+
+        $(document).on('click', '#addButton', function () {
+            var tasksListElement = $('#tasksList');
+
+            //then we are appending new item to our list
+            //this new item should contain text taken for our input field
+            //we have to find taskInput element on a page
+            var taskInputElement = $('#taskInput');
+            //get it's text
+            var taskInputValue = taskInputElement.val();
+            //the same can be achieved in such way
+            //var taskInputValue = $('#taskInput').val()
+
+            //and use it in function that will prepare new list item
+            tasksListElement.append(rowTemplate(taskInputValue));
+        });
+
+    </script>
+</head>
+<body>
+
+<input type="text" id="taskInput">
+<input type="button" id="addButton" value="Add">
+
+<ul id="tasksList">
+</ul>
+
+</body>
+</html>
