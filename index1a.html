@@ -1,4 +1,4 @@
-<!--Add list element based on input value-->
+<!--Add Boostrap and relevant markup changes/classes-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,29 +6,13 @@
     <meta charset="UTF-8">
     <title>My TODO App!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
+    <!--Step 1a - add Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script>
 
-        //function allows to use given argument, so that each time when we call it, it can give different output
-        var rowTemplate = function(text){
-            return '<li class="list-group-item">' + text + '</li>'
-        };
-
         $(document).on('click', '#addButton', function () {
-            var tasksListElement = $('#tasksList');
-
-            //then we are appending new item to our list
-            //this new item should contain text taken for our input field
-            //we have to find taskInput element on a page
-            var taskInputElement = $('#taskInput');
-            //get it's text
-            var taskInputValue = taskInputElement.val();
-            //the same can be achieved in such way
-            //var taskInputValue = $('#taskInput').val()
-
-            //and use it in function that will prepare new list item
-            tasksListElement.append(rowTemplate(taskInputValue));
+            alert("You clicked Add button!");
         });
 
     </script>
@@ -50,10 +34,14 @@
             <!--'li stands for list item-->
             <!--Name of tasks should be more real life exmple-->
             <ul id="tasksList" class="list-group">
+                <li class="list-group-item">Some example task 1</li>
+                <li class="list-group-item">Some example task 2</li>
+                <li class="list-group-item">Some example task 3</li>
             </ul>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

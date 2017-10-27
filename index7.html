@@ -1,9 +1,12 @@
+<!--Save tasks to local storage-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My TODO App!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
     <style>
         .Done {
@@ -16,9 +19,11 @@
         var tasksArray = []
 
         var rowTemplate = function (text) {
-            return '<li>' +
-                    '<span style="margin-right: 5px">' + text + '</span>' +
-                    '<button class="taskDone">Done</button>' +
+            return '<li class="list-group-item" style="padding-bottom: 20px;">' +
+                    '<span>' + text + '</span>' +
+                    //we will need this class - taskDone to identify a button, to add behaviour to it
+                    //we can't use id='taskDone' because there will be many buttons and id should be unique for each element
+                    '<button class="taskDone btn btn-success btn-sm pull-right">Done</button>' +
                     '</li>'
         };
 
@@ -51,11 +56,17 @@
 </head>
 <body>
 
-<input type="text" id="taskInput">
-<input type="button" id="addButton" value="Add">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <!--Step 1b - refactor markup -->
+            <div class="row">
+                <div class="form-group col-xs-9">
+                    <input type="text" class="form-control" id="taskInput">
+                </div>
+                <button type="submit" class="btn btn-primary col-xs-2" id="addButton">Add</button>
+            </div>
 
-<ul id="tasksList">
-</ul>
-
+            <ul id="tasksList" class="list-group"></ul>
 </body>
 </html>

@@ -1,34 +1,51 @@
+<!--Handle button click with hardcoded data-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My TODO App!</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
     <script>
 
-        $(document).on('click', '#addButton', function () {
-            //first we have to find our tasksList element on a page
-            // $('#idOfElement')
-            var tasksListElement = $('#tasksList')
+      $(document).on('click', '#addButton', function () {
+        //first we have to find our tasksList element on a page
+        // $('#idOfElement')
+        var tasksListElement = $('#tasksList');
 
-            //then we are appending new item to our list
-            var rowTemplate = '<li>dynamically added list item</li>';
-            tasksListElement.append(rowTemplate)
-        });
+        //then we are appending new item to our list
+        var rowTemplate = '<li class="list-group-item">dynamically added list item</li>';
+        tasksListElement.append(rowTemplate);
+      });
 
     </script>
 </head>
 <body>
 
-<input type="text">
-<input type="button" id="addButton" value="Add">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <!--Step 1b - refactor markup -->
+            <div class="row">
+                <div class="form-group col-xs-9">
+                    <input type="text" class="form-control" id="taskInput">
+                </div>
+                <button type="submit" class="btn btn-primary col-xs-2" id="addButton">Add</button>
+            </div>
 
-<ul id="tasksList">
-    <li>Some example task 1</li>
-    <li>Some example task 2</li>
-    <li>Some example task 3</li>
-</ul>
+            <!--'ul' stands for unordered list-->
+            <!--'li stands for list item-->
+            <!--Name of tasks should be more real life exmple-->
+            <ul id="tasksList" class="list-group">
+                <li class="list-group-item">Some example task 1</li>
+                <li class="list-group-item">Some example task 2</li>
+                <li class="list-group-item">Some example task 3</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
